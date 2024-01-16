@@ -4,7 +4,7 @@ Valkyrie Engine is a game engine created for the Game Engine subject from the Vi
 (CITM UPC)
 
 <p align="center">
-  <img src="https://cdn.discordapp.com/attachments/529313201444225037/1169034298364538880/41VApAg2qpL.png?ex=65b03808&is=659dc308&hm=949389bf1d26b6486ff474a20569871851dada216b9224da80e9f1b82322e373&" alt="MishimaEngineLogo" width="400" height="400"/>
+  <img src="https://cdn.discordapp.com/attachments/839410157079494716/1196907978691977236/OIG.hk.zBjRL.jpg?ex=65b9566b&is=65a6e16b&hm=439c8dd965382cbde4aabf9ba0576023cec543935e07936b0ed4bb8334436ffc&" alt="MishimaEngineLogo" width="400" height="400"/>
 </p>
 
 # Team Members:
@@ -16,7 +16,7 @@ Valkyrie Engine is a game engine created for the Game Engine subject from the Vi
   <img src="https://cdn.discordapp.com/attachments/839410157079494716/1196896924603777084/1705432857816.jpg?ex=65b94c20&is=65a6d720&hm=f82ba86a93c882078c3d77d7883da652f5ab2bf8a82971a445d907433fef32cc&" alt="JoelMaldonadoFoto" width="500" height="300"/>
 </p>
 
-# Main Core Sub-Systems
+# Main Core S ub-Systems
 
  - Model Import + Drag & Drop
  - Texture Import
@@ -31,15 +31,15 @@ Valkyrie Engine is a game engine created for the Game Engine subject from the Vi
  - Camera component, mouse pick & frustum culling
  - Resource Management
 
-# High-Level System: Skeletal Animation System
-
 # Repository and Releases
 
 ### Repository Link: [Valkyrie Engine](https://github.com/Neffyer/Valkyrie_Engine_3)
 
-### Last Release Link: [v0.3 - Skeletal Animation System]()
+### Last Release Link: [v0.3 - Skeletal Animation System](https://github.com/Neffyer/Valkyrie_Engine_3/releases/tag/Valkyrie_Engine-v0.3)
 
 # Workflow Video
+
+
 
 # License
 
