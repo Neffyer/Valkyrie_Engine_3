@@ -20,13 +20,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -220,6 +220,9 @@
     <ClInclude Include="Source\Random.h" />
     <ClInclude Include="Source\RenderTexture.h" />
     <ClInclude Include="Source\Resource.h" />
+    <ClInclude Include="Source\ResourceAnimation.h" />
+    <ClInclude Include="Source\ResourceAnimationController.h" />
+    <ClInclude Include="Source\ResourceAnimationLoader.h" />
     <ClInclude Include="Source\ResourceManager.h" />
     <ClInclude Include="Source\ResourceMesh.h" />
     <ClInclude Include="Source\ResourcePrefab.h" />
@@ -305,6 +308,9 @@
     <ClCompile Include="Source\Random.cpp" />
     <ClCompile Include="Source\RenderTexture.cpp" />
     <ClCompile Include="Source\Resource.cpp" />
+    <ClCompile Include="Source\ResourceAnimation.cpp" />
+    <ClCompile Include="Source\ResourceAnimationController.cpp" />
+    <ClCompile Include="Source\ResourceAnimationLoader.cpp" />
     <ClCompile Include="Source\ResourceManager.cpp" />
     <ClCompile Include="Source\ResourceMesh.cpp" />
     <ClCompile Include="Source\ResourcePrefab.cpp" />

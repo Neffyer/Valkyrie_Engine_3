@@ -36,8 +36,12 @@ bool ModuleResourceManager::Start()
 	texture_loader->AddAssetExtensionToLoad(".dds");
 	texture_loader->AddLibraryExtensionToLoad(".dds");
 
+	//ResourceAnimationLoader* mesh_loader = new ResourceAnimationLoader();
+	//animation_loader->AddAssetExtensionToLoad(".fbx");
+
 	AddLoader(mesh_loader);
 	AddLoader(texture_loader);
+	//AddLoader(animation_loader);
 
 
 	LoadResourcesFromAssets();

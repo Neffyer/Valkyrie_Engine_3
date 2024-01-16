@@ -516,6 +516,15 @@
     <ClInclude Include="Source\ResourcePrefab.h">
       <Filter>Sources\ResourceManagment\Resources</Filter>
     </ClInclude>
+    <ClInclude Include="Source\ResourceAnimationLoader.h">
+      <Filter>Sources\ResourceManagment\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ResourceAnimation.h">
+      <Filter>Sources\ResourceManagment\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ResourceAnimationController.h">
+      <Filter>Sources\ResourceManagment\Resources</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\ModuleCamera3D.cpp">
@@ -765,6 +774,15 @@
       <Filter>Sources\ResourceManagment\Loaders</Filter>
     </ClCompile>
     <ClCompile Include="Source\ResourcePrefab.cpp">
+      <Filter>Sources\ResourceManagment\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ResourceAnimationLoader.cpp">
+      <Filter>Sources\ResourceManagment\Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ResourceAnimation.cpp">
+      <Filter>Sources\ResourceManagment\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ResourceAnimationController.cpp">
       <Filter>Sources\ResourceManagment\Resources</Filter>
     </ClCompile>
   </ItemGroup>

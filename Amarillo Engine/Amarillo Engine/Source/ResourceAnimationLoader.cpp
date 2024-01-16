@@ -1,0 +1,269 @@
+//#include "ResourceAnimationLoader.h"
+//
+//#include "ResourceAnimation.h"
+//#include "ResourceAnimationController.h"
+//
+//#include "ComponentMesh.h"
+//
+//#include "Config.h"
+//#include "../External/Assimp/include/scene.h"
+//
+//ResourceAnimation* Importer::Animations::Create()
+//{
+//	return new ResourceAnimation();
+//}
+//
+//void Importer::Animations::Import(const aiAnimation* animation, R_Animation* resourceAnimation)
+//{
+//	//Import general animation data
+//	resourceAnimation->duration = animation->mDuration;
+//	resourceAnimation->ticksPerSecond = animation->mTicksPerSecond;
+//
+//	//Import all channels data
+//	for (uint i = 0; i < animation->mNumChannels; i++)
+//	{
+//		std::string nodeName = animation->mChannels[i]->mNodeName.C_Str();
+//
+//		uint symbolPos = nodeName.find("_$AssimpFbx$_");
+//		if (symbolPos != std::string::npos)
+//		{
+//			nodeName = nodeName.substr(0, symbolPos);
+//		}
+//
+//		resourceAnimation->channels[nodeName] = Channel();
+//		Private::ImportChannel(animation->mChannels[i], resourceAnimation->channels[nodeName]);
+//	}
+//}
+//
+//uint64 Importer::Animations::Save(const R_Animation* resourceAnimation, char** buffer)
+//{
+//	//Animation duration, ticks per sec, numChannels, channels
+//	uint size = sizeof(float) + sizeof(float) + sizeof(uint);
+//	//Adding the size of each channel
+//	std::map<std::string, Channel>::const_iterator it;
+//	for (it = resourceAnimation->channels.begin(); it != resourceAnimation->channels.end(); ++it)
+//		size += Private::CalcChannelSize(it->second);
+//
+//	//Allocate buffer size
+//	*buffer = new char[size];
+//	char* cursor = *buffer;
+//
+//	//Duration
+//	memcpy(cursor, &resourceAnimation->duration, sizeof(float));
+//	cursor += sizeof(float);
+//
+//	//Ticks per sec
+//	memcpy(cursor, &resourceAnimation->ticksPerSecond, sizeof(float));
+//	cursor += sizeof(float);
+//
+//	//Channels number
+//	uint channelsSize = resourceAnimation->channels.size();
+//	memcpy(cursor, &channelsSize, sizeof(uint));
+//	cursor += sizeof(uint);
+//
+//	for (it = resourceAnimation->channels.begin(); it != resourceAnimation->channels.end(); ++it)
+//		Private::SaveChannel(it->second, &cursor);
+//
+//	return size;
+//}
+//
+//ResourceAnimatorController* Importer::Animators::Create()
+//{
+//	return new ResourceAnimatorController();
+//}
+//
+//uint64 Importer::Animators::Save(const ResourceAnimatorController* rAnimator, char** buffer)
+//{
+//	Config file;
+//	Config_Array animationsNode = file.SetArray("Animations");
+//
+//	for (uint i = 0; i < rAnimator->animations.size(); ++i)
+//	{
+//		animationsNode.AddNumber(rAnimator->animations[i]);
+//	}
+//
+//	return file.Serialize(buffer);
+//}
+//
+//void Importer::Animators::Load(const char* buffer, ResourceAnimatorController* rAnimator)
+//{
+//	Config file(buffer);
+//	Config_Array animationsNode = file.GetArray("Animations");
+//
+//	for (uint i = 0; i < animationsNode.GetSize(); ++i)
+//	{
+//		rAnimator->AddAnimation(animationsNode.GetNumber(i));
+//	}
+//}
+//
+//void Importer::Animations::Load(const char* buffer, R_Animation* resourceAnimation)
+//{
+//	const char* cursor = buffer;
+//	uint bytes;
+//
+//	//Duration
+//	memcpy(&resourceAnimation->duration, cursor, sizeof(float));
+//	cursor += sizeof(float);
+//
+//	//Ticks per sec
+//	memcpy(&resourceAnimation->ticksPerSecond, cursor, sizeof(float));
+//	cursor += sizeof(float);
+//
+//	//Channels number
+//	uint channelsSize = 0;
+//	memcpy(&channelsSize, cursor, sizeof(uint));
+//	cursor += sizeof(uint);
+//
+//	for (uint i = 0; i < channelsSize; ++i)
+//	{
+//		Channel newChannel;
+//		Private::LoadChannel(newChannel, &cursor);
+//		resourceAnimation->channels[newChannel.name.c_str()] = newChannel;
+//	}
+//}
+//
+//void Importer::Animations::Private::ImportChannel(const aiNodeAnim* node, Channel& channel)
+//{
+//	channel.name = node->mNodeName.C_Str();
+//	uint pos = channel.name.find("_$AssimpFbx$_");
+//	if (pos != std::string::npos)
+//	{
+//		channel.name = channel.name.substr(0, pos);
+//	}
+//	//Loading position keys
+//	for (uint i = 0; i < node->mNumPositionKeys; i++)
+//		channel.positionKeys[node->mPositionKeys[i].mTime] = float3(node->mPositionKeys[i].mValue.x, node->mPositionKeys[i].mValue.y, node->mPositionKeys[i].mValue.z);
+//
+//	//Loading rotation keys
+//	for (uint i = 0; i < node->mNumRotationKeys; i++)
+//		channel.rotationKeys[node->mRotationKeys[i].mTime] = Quat(node->mRotationKeys[i].mValue.x, node->mRotationKeys[i].mValue.y, node->mRotationKeys[i].mValue.z, node->mRotationKeys[i].mValue.w);
+//
+//	//Loading scale keys
+//	for (uint i = 0; i < node->mNumScalingKeys; i++)
+//		channel.scaleKeys[node->mScalingKeys[i].mTime] = float3(node->mScalingKeys[i].mValue.x, node->mScalingKeys[i].mValue.y, node->mScalingKeys[i].mValue.z);
+//
+//}
+//
+//uint Importer::Animations::Private::CalcChannelSize(const Channel& channel)
+//{
+//	//Name (size and string) // Ranges (pos, rot, scale) // Pos floats // Pos // Rot floats // Rots // Scale floats // Scales
+//	uint ret = sizeof(uint) + channel.name.size() + sizeof(uint) * 3;
+//	//Positions
+//	ret += sizeof(double) * channel.positionKeys.size() + sizeof(float) * channel.positionKeys.size() * 3;
+//	//Rotations
+//	ret += sizeof(double) * channel.rotationKeys.size() + sizeof(float) * channel.rotationKeys.size() * 4;
+//	//Scales
+//	ret += sizeof(double) * channel.scaleKeys.size() + sizeof(float) * channel.scaleKeys.size() * 3;
+//
+//	return ret;
+//}
+//
+//void Importer::Animations::Private::SaveChannel(const Channel& channel, char** cursor)
+//{
+//	//Name (size and string)
+//	uint nameSize = channel.name.size();
+//	memcpy(*cursor, &nameSize, sizeof(uint));
+//	*cursor += sizeof(uint);
+//
+//	memcpy(*cursor, channel.name.c_str(), channel.name.size());
+//	*cursor += channel.name.size();
+//
+//	//Ranges
+//	uint ranges[3] = { channel.positionKeys.size(), channel.rotationKeys.size(), channel.scaleKeys.size() };
+//	memcpy(*cursor, ranges, sizeof(uint) * 3);
+//	*cursor += sizeof(uint) * 3;
+//
+//	SaveChannelKeys(channel.positionKeys, cursor);
+//	SaveChannelKeys(channel.rotationKeys, cursor);
+//	SaveChannelKeys(channel.scaleKeys, cursor);
+//}
+//
+//void Importer::Animations::Private::SaveChannelKeys(const std::map<double, float3>& map, char** cursor)
+//{
+//	//Keys save structure: float-float3 // float-float3 // ...
+//	std::map<double, float3>::const_iterator it = map.begin();
+//	for (it = map.begin(); it != map.end(); it++)
+//	{
+//		memcpy(*cursor, &it->first, sizeof(double));
+//		*cursor += sizeof(double);
+//
+//		memcpy(*cursor, &it->second, sizeof(float) * 3);
+//		*cursor += sizeof(float) * 3;
+//	}
+//}
+//
+//
+//void Importer::Animations::Private::SaveChannelKeys(const std::map<double, Quat>& map, char** cursor)
+//{
+//	//Keys save structure: float-float4 // float-float4 // ...
+//	std::map<double, Quat>::const_iterator it = map.begin();
+//	for (it = map.begin(); it != map.end(); it++)
+//	{
+//		memcpy(*cursor, &it->first, sizeof(double));
+//		*cursor += sizeof(double);
+//
+//		memcpy(*cursor, &it->second, sizeof(float) * 4);
+//		*cursor += sizeof(float) * 4;
+//	}
+//}
+//
+//void Importer::Animations::Private::LoadChannel(Channel& channel, const char** cursor)
+//{
+//	uint bytes = 0;
+//
+//	//Name (size and string)
+//	uint nameSize = 0;
+//	memcpy(&nameSize, *cursor, sizeof(uint));
+//	*cursor += sizeof(uint);
+//
+//	if (nameSize > 0)
+//	{
+//		char* string = new char[nameSize + 1];
+//		bytes = sizeof(char) * nameSize;
+//		memcpy(string, *cursor, bytes);
+//		*cursor += bytes;
+//		string[nameSize] = '\0';
+//		channel.name = string;
+//		RELEASE_ARRAY(string);
+//	}
+//
+//	//Ranges
+//	uint ranges[3];
+//	memcpy(&ranges, *cursor, sizeof(uint) * 3);
+//	*cursor += sizeof(uint) * 3;
+//
+//	LoadChannelKeys(channel.positionKeys, cursor, ranges[0]);
+//	LoadChannelKeys(channel.rotationKeys, cursor, ranges[1]);
+//	LoadChannelKeys(channel.scaleKeys, cursor, ranges[2]);
+//
+//}
+//
+//void Importer::Animations::Private::LoadChannelKeys(std::map<double, float3>& map, const char** cursor, uint size)
+//{
+//	for (uint i = 0; i < size; i++)
+//	{
+//		double time;
+//		memcpy(&time, *cursor, sizeof(double));
+//		*cursor += sizeof(double);
+//		float data[3];
+//		memcpy(&data, *cursor, sizeof(float) * 3);
+//		*cursor += sizeof(float) * 3;
+//
+//		map[time] = float3(data);
+//	}
+//}
+//
+//void Importer::Animations::Private::LoadChannelKeys(std::map<double, Quat>& map, const char** cursor, uint size)
+//{
+//	for (uint i = 0; i < size; i++)
+//	{
+//		double time;
+//		memcpy(&time, *cursor, sizeof(double));
+//		*cursor += sizeof(double);
+//		float data[4];
+//		memcpy(&data, *cursor, sizeof(float) * 4);
+//		*cursor += sizeof(float) * 4;
+//
+//		map[time] = Quat(data);
+//	}
+//}
