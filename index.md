@@ -16,7 +16,7 @@ Valkyrie Engine is a game engine created for the Game Engine subject from the Vi
   <img src="https://cdn.discordapp.com/attachments/839410157079494716/1196896924603777084/1705432857816.jpg?ex=65b94c20&is=65a6d720&hm=f82ba86a93c882078c3d77d7883da652f5ab2bf8a82971a445d907433fef32cc&" alt="JoelMaldonadoFoto" width="500" height="300"/>
 </p>
 
-# Main Core S ub-Systems
+# Main Core Sub-Systems
 
  - Model Import + Drag & Drop
  - Texture Import
@@ -36,10 +36,6 @@ Valkyrie Engine is a game engine created for the Game Engine subject from the Vi
 ### Repository Link: [Valkyrie Engine](https://github.com/Neffyer/Valkyrie_Engine_3)
 
 ### Last Release Link: [v0.3 - Skeletal Animation System](https://github.com/Neffyer/Valkyrie_Engine_3/releases/tag/Valkyrie_Engine-v0.3)
-
-# Workflow Video
-
-
 
 # License
 
